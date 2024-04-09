@@ -13,7 +13,8 @@ app.use(express.json());
 
 app.use(cors({
     //origin: 'https://customerloyaty.azurewebsites.net'
-    origin: 'customerloyatynewupdate.azurewebsites.net'
+    //origin: 'customerloyatynewupdate.azurewebsites.net'
+    origin: 'https://customerloyatynewupdate.azurewebsites.net/'
   }));
 app.use("/api/v1", mainRouter,businessRouter,businessPointsRouter,customerPoints);
 
