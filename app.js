@@ -11,11 +11,13 @@ const businessPointsRouter = require("./routes/businessPoints");
 const customerPoints = require("./routes/customerPoints");
 app.use(express.json());
 
-app.use(cors({
-    //origin: 'https://customerloyaty.azurewebsites.net'
-    //origin: 'customerloyatynewupdate.azurewebsites.net'
-    origin: 'https://customerloyatynewupdate.azurewebsites.net'
-  }));
+// app.use(cors({
+//     //origin: 'https://customerloyaty.azurewebsites.net'
+//     //origin: 'customerloyatynewupdate.azurewebsites.net'
+//     origin: 'https://customerloyatynewupdate.azurewebsites.net'
+//   }));
+
+app.use(cors());
 app.use("/api/v1", mainRouter,businessRouter,businessPointsRouter,customerPoints);
 
 
