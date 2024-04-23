@@ -105,7 +105,7 @@ const transporter = Mailer.createTransport({
 const resetPassword = async (req, res) => {
   //check for user
   let foundUser = await User.findOne({ email: req.body.email });
-  if (!foundUser && false) {
+  if (!foundUser) {
     res.status(400).json({ msg: "Email address doesn't exist" });
     return;
   }
@@ -115,7 +115,7 @@ const resetPassword = async (req, res) => {
   const hashed_email = buffer.toString("base64url");
 
   const message = `
-    reset_link: http://localhost:5173/password_reset/${hashed_email}
+    reset_link: https://customerloyaty.azurewebsites.net/password_reset/${hashed_email}
   `;
 
   //send email.
