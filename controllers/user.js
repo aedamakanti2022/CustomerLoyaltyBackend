@@ -130,7 +130,7 @@ const resetPassword = async (req, res) => {
     console.error(e);
   }
 
-  res.json({ msg: "Password reset success" });
+  res.json({ msg: "Password reset link has been submitted" });
 };
 
 const updatePassword = async (req, res) => {
