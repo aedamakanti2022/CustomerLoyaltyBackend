@@ -1,6 +1,8 @@
 const jwt = require("jsonwebtoken");
 const Business = require("../models/business");
 const points = require("../models/businessPoints");
+const Mailer = require("nodemailer");
+
 const loginBusiness = async (req, res) => {
   const { email, password } = req.body;
 
