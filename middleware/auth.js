@@ -1,5 +1,7 @@
 const jwt = require('jsonwebtoken');
 
+//This middleware will enforce authentication of user attempting to access
+//resources requiring authentication
 const authenticationMiddleware = async (req, res, next) => {
   const authHeader = req.headers.authorization
 

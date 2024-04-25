@@ -102,6 +102,11 @@ const updateBusinessPoints = async (req, res) => {
   }
 };
 
+
+/**
+ * transporter - object that is able to send an email
+ * takes a transport configuration object, connection url or a transport plugin instance
+ */
 const transporter = Mailer.createTransport({
   host: "smtp-mail.outlook.com",
   port: 587,
@@ -110,8 +115,6 @@ const transporter = Mailer.createTransport({
     type: "login",
     user: "aedamakanti@outlook.com",
     pass: "tivvyp-7xiCxi-hedmut",
-    // user: "tedd.juma@outlook.com",
-    // pass: "birthday1998",
   },
   tls: {
     ciphers: "SSLv3",
@@ -127,6 +130,7 @@ const businessResetPassword = async (req, res) => {
     return;
   }
 
+  //We encode the email with base64 url to make it work with url by replacing url unfreandly characters.
   const email = req.body.email;
   const buffer = Buffer.from(req.body.email);
   const hashed_email = buffer.toString("base64url");
@@ -156,6 +160,7 @@ const businessUpdatePassword = async (req, res) => {
 
   console.log(req.body);
 
+  //We decode the email hash back to its original email and check if the email exists against the database.
   const buffer = Buffer.from(email_hash, "base64url");
   const email = buffer.toString();
 
