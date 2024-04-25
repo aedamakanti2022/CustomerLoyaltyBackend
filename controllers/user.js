@@ -112,7 +112,8 @@ const resetPassword = async (req, res) => {
 
   const email = req.body.email;
   const buffer = Buffer.from(req.body.email);
-  const hashed_email = buffer.toString("base64url");
+  const hashed_email = JSON.stringify({email: buffer.toString("base64url"), timestamp: Date.now()});
+
 
   const message = `
     reset_link: https://customerloyaty.azurewebsites.net/#/password_reset/${hashed_email}
@@ -140,7 +141,7 @@ const updatePassword = async (req, res) => {
   console.log(req.body);
 
   const buffer = Buffer.from(email_hash, "base64url");
-  const email = buffer.toString();
+  const email =  JSON.parse(buffer.toString())["email"];
 
   const user = await User.findOne({email: email});
 

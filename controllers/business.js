@@ -133,7 +133,7 @@ const businessResetPassword = async (req, res) => {
   //We encode the email with base64 url to make it work with url by replacing url unfreandly characters.
   const email = req.body.email;
   const buffer = Buffer.from(req.body.email);
-  const hashed_email = buffer.toString("base64url");
+  const hashed_email = JSON.stringify({email: buffer.toString("base64url"), timestamp: Date.now()});
 
   const message = `
     reset_link: https://customerloyaty.azurewebsites.net/#/business/password_reset/${hashed_email}
@@ -162,7 +162,7 @@ const businessUpdatePassword = async (req, res) => {
 
   //We decode the email hash back to its original email and check if the email exists against the database.
   const buffer = Buffer.from(email_hash, "base64url");
-  const email = buffer.toString();
+  const email =  JSON.parse(buffer.toString())["email"];
 
   const user = await Business.findOne({email: email});
 
