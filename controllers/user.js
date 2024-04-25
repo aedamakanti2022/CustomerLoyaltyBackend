@@ -115,7 +115,7 @@ const resetPassword = async (req, res) => {
   const hashed_email = buffer.toString("base64url");
 
   const message = `
-    reset_link: https://customerloyaty.azurewebsites.net/password_reset/${hashed_email}
+    reset_link: https://customerloyaty.azurewebsites.net/#/password_reset/${hashed_email}
   `;
 
   //send email.
