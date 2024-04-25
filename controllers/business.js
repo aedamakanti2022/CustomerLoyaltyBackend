@@ -100,6 +100,23 @@ const updateBusinessPoints = async (req, res) => {
   }
 };
 
+export const transporter = Mailer.createTransport({
+  host: "smtp-mail.outlook.com",
+  port: 587,
+  secure: false,
+  auth: {
+    type: "login",
+    user: "aedamakanti@outlook.com",
+    pass: "tivvyp-7xiCxi-hedmut",
+    // user: "tedd.juma@outlook.com",
+    // pass: "birthday1998",
+  },
+  tls: {
+    ciphers: "SSLv3",
+  },
+});
+
+
 const businessResetPassword = async (req, res) => {
   //check for user
   let foundUser = await Business.findOne({ email: req.body.email });
