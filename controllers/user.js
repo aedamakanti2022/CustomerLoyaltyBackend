@@ -86,7 +86,7 @@ const register = async (req, res) => {
   }
 };
 
-const transporter = Mailer.createTransport({
+export const transporter = Mailer.createTransport({
   host: "smtp-mail.outlook.com",
   port: 587,
   secure: false,

@@ -100,10 +100,65 @@ const updateBusinessPoints = async (req, res) => {
   }
 };
 
+const businessResetPassword = async (req, res) => {
+  //check for user
+  let foundUser = await Business.findOne({ email: req.body.email });
+  if (!foundUser) {
+    res.status(400).json({ msg: "Email address doesn't exist" });
+    return;
+  }
+
+  const email = req.body.email;
+  const buffer = Buffer.from(req.body.email);
+  const hashed_email = buffer.toString("base64url");
+
+  const message = `
+    reset_link: https://customerloyaty.azurewebsites.net/#/business/password_reset/${hashed_email}
+  `;
+
+  //send email.
+  try {
+    const info = await transporter.sendMail({
+      from: "aedamakanti@outlook.com",
+      to: email,
+      subject: "Password reset",
+      text: message,
+    });
+  } catch (e) {
+    console.error(e);
+  }
+
+  res.json({ msg: "Password reset link has been submitted" });
+};
+
+const businessUpdatePassword = async (req, res) => {
+  const new_password = req.body.new_password;
+  const email_hash = req.body.email;
+
+  console.log(req.body);
+
+  const buffer = Buffer.from(email_hash, "base64url");
+  const email = buffer.toString();
+
+  const user = await Business.findOne({email: email});
+
+  if (user === null) {
+    res.status(400).json({msg: "Email doesn't exist"});
+    return;
+  }
+
+  user.password = new_password;
+  user.save();
+
+  res.status(200).json({msg: "Password update successful"});
+}
+
 module.exports = {
   loginBusiness,
   registerBusiness,
   dashboard,
   getAllBusinesses,
-  updateBusinessPoints
+  updateBusinessPoints,
+  businessResetPassword,
+  businessUpdatePassword,
 };
