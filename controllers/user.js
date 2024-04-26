@@ -111,8 +111,8 @@ const resetPassword = async (req, res) => {
   }
 
   const email = req.body.email;
-  const buffer = Buffer.from(req.body.email);
-  const hashed_email = JSON.stringify({email: buffer.toString("base64url"), timestamp: Date.now()});
+  const buffer = Buffer.from(JSON.stringify({email:req.body.email, timestamp: Date.now()}));
+  const hashed_email =  buffer.toString("base64url");
 
 
   const message = `
