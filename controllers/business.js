@@ -139,6 +139,8 @@ const businessResetPassword = async (req, res) => {
     reset_link: https://customerloyaty.azurewebsites.net/#/business/password_reset/${hashed_email}
   `;
 
+  console.log(message)
+
   //send email.
   try {
     const info = await transporter.sendMail({
